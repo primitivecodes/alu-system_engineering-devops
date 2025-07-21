@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Installs Nginx and configures it to serve a custom HTML page with "Holberton School"
+
+# Install Nginx silently (-y confirms installation)
+apt-get update -y
+apt-get install nginx -y
+
+# Create the HTML page
+echo "Holberton School for the win!" > /var/www/html/index.html
+
+# Start Nginx using service (since systemctl is not allowed)
+service nginx start
