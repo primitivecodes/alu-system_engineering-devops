@@ -1,13 +1,7 @@
-nstalls Nginx and configures it to serve a page with "Holberton School" at /
-
-# Update package lists
-apt-get update -y
-
-# Install Nginx silently
-apt-get install nginx -y
-
-# Ensure the default root index.html contains "Holberton School"
-echo "Holberton School" > /var/www/html/index.html
-
-# Start nginx using service (not systemctl)
-service nginx start || service nginx restart
+#!/usr/bin/env bash
+# installs nginx on a remote server and configures it
+sudo apt update
+sudo apt install nginx -y
+sudo touch /var/www/html/index.html
+echo "Holberton School" | sudo tee /var/www/html/index.html
+sudo service nginx start
