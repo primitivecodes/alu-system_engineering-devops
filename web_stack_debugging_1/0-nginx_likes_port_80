@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# This script configures Nginx by removing the default site configuration,
+rm /etc/nginx/sites-enabled/default
+cd /etc/nginx/sites-enabled/
+ln -s ../sites-available/default .
+service nginx restart
+curl 0:80p
