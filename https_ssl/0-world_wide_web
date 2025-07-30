@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Function to get DNS record for a subdomain
+get_record_info() {
+    local DOMAIN=$1
+    local SUBDOMAIN=$2
+    dig ${SUBDOMAIN}.${DOMAIN} +short | awk -v sub=${SUBDOMAIN} -v dom=${DOMAIN} '
+    BEGIN { record="A"; }
+    /^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$/ {
+        print "The subdomain " sub " is a " record " record and points to " $1
+    }'
+}
+
+# Main logic
+DOMAIN=$1
+SUBDOMAIN=$2
+
+if [ -z "$SUBDOMAIN" ]; then
+    for SUB in www lb-01 web-01 web-02; do
+        get_record_info $DOMAIN $SUB
+    done
+else
+    get_record_info $DOMAIN $SUBDOMAIN
+fi
